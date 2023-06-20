@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "ES2019",
+    "module": "commonjs",
+    "outDir": "./build/",
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "preserveConstEnums": true
+  },
+  "include": ["src/**/*.ts", "test/**/*.ts"]
+}
