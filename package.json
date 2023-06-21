@@ -6,6 +6,7 @@
   "files": [
     "build/**/*"
   ],
+  "types": "./build/index.d.ts",
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
     "clean": "rm -rf ./build/",
@@ -24,7 +25,7 @@
     "name": "Ignat Ospadov"
   },
   "engines": {
-    "node": ">=18.0"
+    "node": ">=16.0"
   },
   "devDependencies": {
     "@types/jest": "^27.5.2",
