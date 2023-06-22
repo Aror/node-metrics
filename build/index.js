@@ -3,9 +3,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.summary = exports.histogram = exports.gauge = exports.defaultMetrics = exports.counter = exports.collect = exports.USE = exports.RED = exports.FourGoldenSignals = void 0;
-var FourGoldenSignals_1 = require("./frameworks/FourGoldenSignals");
-Object.defineProperty(exports, "FourGoldenSignals", { enumerable: true, get: function () { return __importDefault(FourGoldenSignals_1).default; } });
+exports.summary = exports.histogram = exports.gauge = exports.defaultMetrics = exports.counter = exports.collect = exports.USE = exports.RED = exports.UPM = void 0;
+var UPM_1 = require("./frameworks/UPM");
+Object.defineProperty(exports, "UPM", { enumerable: true, get: function () { return __importDefault(UPM_1).default; } });
 var RED_1 = require("./frameworks/RED");
 Object.defineProperty(exports, "RED", { enumerable: true, get: function () { return __importDefault(RED_1).default; } });
 var USE_1 = require("./frameworks/USE");

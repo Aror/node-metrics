@@ -1,12 +1,18 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+const joi_1 = __importDefault(require("joi"));
+const Base_1 = __importDefault(require("./Base"));
 const metrics_1 = require("../metrics");
-class RED {
+class RED extends Base_1.default {
     constructor(params) {
+        super();
         this.durationLabels = params.durationLabels;
         this.requestLabels = params.requestLabels;
         this.requestType = params.requestType;
-        this.validate();
+        this.validate(params);
         (0, metrics_1.defaultMetrics)();
         this.duration = (0, metrics_1.histogram)({
             name: `${this.requestType}_duration_seconds`,
@@ -24,22 +30,12 @@ class RED {
             labelNames: this.requestLabels
         });
     }
-    validate() {
-        if (!this.requestType || typeof this.requestType !== 'string') {
-            throw new Error('requestType is required and must be a string');
-        }
-        if (!Array.isArray(this.requestLabels) || this.requestLabels.length === 0) {
-            throw new Error('requestLabels is required and must be a non-empty array');
-        }
-        if (!Array.isArray(this.durationLabels) || this.durationLabels.length === 0) {
-            throw new Error('durationLabels is required and must be a non-empty array');
-        }
-        if (this.requestLabels.some(label => typeof label !== 'string')) {
-            throw new Error('requestLabels must contain only string values');
-        }
-        if (this.durationLabels.some(label => typeof label !== 'string')) {
-            throw new Error('DurationLabels must contain only string values');
-        }
+    schema() {
+        return joi_1.default.object({
+            durationLabels: joi_1.default.array().items(joi_1.default.string()).min(1),
+            requestType: joi_1.default.string(),
+            requestLabels: joi_1.default.array().items(joi_1.default.string()).min(1)
+        });
     }
 }
 exports.default = RED;

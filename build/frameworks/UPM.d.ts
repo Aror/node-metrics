@@ -1,3 +1,5 @@
+import Joi from 'joi';
+import Base from './Base';
 import { counter, gauge, histogram } from '../metrics';
 type Props = {
     latencyName: string;
@@ -10,7 +12,7 @@ type Props = {
     saturationHelp: string;
     saturationLabels: string[];
 };
-declare class FourGoldenSignalsOpts {
+declare class UPM extends Base<Props> {
     private latencyName;
     private latencyHelp;
     private latencyLabels;
@@ -25,6 +27,6 @@ declare class FourGoldenSignalsOpts {
     saturation: ReturnType<typeof gauge>;
     traffic: ReturnType<typeof counter>;
     constructor(params: Props);
-    validate(): void;
+    protected schema(): Joi.ObjectSchema<Props>;
 }
-export default FourGoldenSignalsOpts;
+export default UPM;

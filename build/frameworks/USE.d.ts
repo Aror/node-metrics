@@ -1,3 +1,5 @@
+import Joi from 'joi';
+import Base from './Base';
 import { counter, gauge } from '../metrics';
 type Props = {
     saturationName: string;
@@ -7,7 +9,7 @@ type Props = {
     utilizationHelp: string;
     utilizationLabels: string[];
 };
-declare class USE {
+declare class USE extends Base<Props> {
     private saturationName;
     private saturationHelp;
     private saturationLabels;
@@ -18,6 +20,6 @@ declare class USE {
     saturation: ReturnType<typeof gauge>;
     utilization: ReturnType<typeof gauge>;
     constructor(params: Props);
-    private validate;
+    protected schema(): Joi.ObjectSchema<Props>;
 }
 export default USE;
