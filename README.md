@@ -24,7 +24,7 @@ The primary goals of this library are to:
   - **Rate** - the number of requests, per second, you services are serving
   - **Errors** - the number of failed requests per second
   - **Duration** - distributions of the amount of time each request takes
-- `FourGoldenSignals` class stands for UserPerformance Metrics. It follows **The Four Golden Signals** and focuses on measuring:
+- `FourGoldenSignals` class represents **The Four Golden Signals** and focuses on measuring:
   - **Latency** - the time it takes to service a request
   - **Traffic** - how much demand is being placed on your system
   - **Errors** - rate of requests that fail
