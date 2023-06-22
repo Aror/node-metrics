@@ -1,4 +1,4 @@
-import UPM from '../UPM'
+import FourGoldenSignals from '../FourGoldenSignals'
 
 const params = ({
   latencyName = 'latency',
@@ -24,10 +24,10 @@ const params = ({
   }
 }
 
-describe('UPM', () => {
+describe('FourGoldenSignals', () => {
   describe('when parameters are correct', () => {
     it('instantiates class with passed values', () => {
-      const subject = new UPM(params({}))
+      const subject = new FourGoldenSignals(params({}))
       expect(subject['latencyName']).toBe(params({}).latencyName)
     })
   })
@@ -37,7 +37,7 @@ describe('UPM', () => {
         'given %p and and empty string as arguments, throws an error',
         (a, b) => {
           expect(() => {
-            new UPM(params({ [a]: '' }))
+            new FourGoldenSignals(params({ [a]: '' }))
           }).toThrow(Error)
         }
       )
@@ -47,7 +47,7 @@ describe('UPM', () => {
         'given %p and 0 as arguments, throws an error',
         (a, b) => {
           expect(() => {
-            new UPM(params({ [a]: 0 }))
+            new FourGoldenSignals(params({ [a]: 0 }))
           }).toThrow(Error)
         }
       )
@@ -55,38 +55,38 @@ describe('UPM', () => {
     describe('when arrays of unexpected length are passed', () => {
       it('throws an error for latencyLabels', () => {
         expect(() => {
-          new UPM(params({ latencyLabels: [] }))
+          new FourGoldenSignals(params({ latencyLabels: [] }))
         }).toThrow(Error)
       })
 
       it('throws an error for trafficLabels', () => {
         expect(() => {
-          new UPM(params({ trafficLabels: [] }))
+          new FourGoldenSignals(params({ trafficLabels: [] }))
         }).toThrow(Error)
       })
 
       it('throws an error for saturationLabels', () => {
         expect(() => {
-          new UPM(params({ saturationLabels: [] }))
+          new FourGoldenSignals(params({ saturationLabels: [] }))
         }).toThrow(Error)
       })
     })
     describe('when some array values are not strings', () => {
       it('throws an error for latencyLabels', () => {
         expect(() => {
-          new UPM(params({ latencyLabels: ['string', 0 as any] }))
+          new FourGoldenSignals(params({ latencyLabels: ['string', 0 as any] }))
         }).toThrow(Error)
       })
 
       it('throws an error for trafficLabels', () => {
         expect(() => {
-          new UPM(params({ trafficLabels: ['string', 0 as any] }))
+          new FourGoldenSignals(params({ trafficLabels: ['string', 0 as any] }))
         }).toThrow(Error)
       })
 
       it('throws an error for saturationLabels', () => {
         expect(() => {
-          new UPM(params({ saturationLabels: ['string', 0 as any] }))
+          new FourGoldenSignals(params({ saturationLabels: ['string', 0 as any] }))
         }).toThrow(Error)
       })
     })

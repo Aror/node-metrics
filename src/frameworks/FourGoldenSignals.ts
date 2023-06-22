@@ -14,7 +14,7 @@ type Props = {
   saturationLabels: string[]
 }
 
-class UPM extends Base<Props> {
+class FourGoldenSignals extends Base<Props> {
   private latencyName: Props['latencyName']
   private latencyHelp: Props['latencyHelp']
   private latencyLabels: Props['latencyLabels']
@@ -85,4 +85,4 @@ class UPM extends Base<Props> {
   }
 }
 
-export default UPM
+export default FourGoldenSignals

@@ -12,7 +12,7 @@ type Props = {
     saturationHelp: string;
     saturationLabels: string[];
 };
-declare class UPM extends Base<Props> {
+declare class FourGoldenSignals extends Base<Props> {
     private latencyName;
     private latencyHelp;
     private latencyLabels;
@@ -29,4 +29,4 @@ declare class UPM extends Base<Props> {
     constructor(params: Props);
     protected schema(): Joi.ObjectSchema<Props>;
 }
-export default UPM;
+export default FourGoldenSignals;

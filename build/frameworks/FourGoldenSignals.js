@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const joi_1 = __importDefault(require("joi"));
 const Base_1 = __importDefault(require("./Base"));
 const metrics_1 = require("../metrics");
-class UPM extends Base_1.default {
+class FourGoldenSignals extends Base_1.default {
     constructor(params) {
         super();
         this.latencyName = params.latencyName;
@@ -55,4 +55,4 @@ class UPM extends Base_1.default {
         });
     }
 }
-exports.default = UPM;
+exports.default = FourGoldenSignals;
