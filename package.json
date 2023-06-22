@@ -48,6 +48,7 @@
     "*.ts": "eslint --cache --cache-location .eslintcache --fix"
   },
   "dependencies": {
+    "joi": "^17.9.2",
     "prom-client": "^14.2.0"
   }
 }

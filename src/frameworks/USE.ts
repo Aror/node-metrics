@@ -1,3 +1,5 @@
+import Joi from 'joi'
+import Base from './Base'
 import { counter, defaultMetrics, gauge } from '../metrics'
 
 type Props = {
@@ -9,7 +11,7 @@ type Props = {
   utilizationLabels: string[]
 }
 
-class USE {
+class USE extends Base<Props> {
   private saturationName: Props['saturationName']
   private saturationHelp: Props['saturationHelp']
   private saturationLabels: Props['saturationLabels']
@@ -22,6 +24,7 @@ class USE {
   public utilization: ReturnType<typeof gauge>
 
   constructor(params: Props) {
+    super()
     this.saturationName = params.saturationName
     this.saturationHelp = params.saturationHelp
     this.saturationLabels = params.saturationLabels
@@ -29,7 +32,7 @@ class USE {
     this.utilizationHelp = params.utilizationHelp
     this.utilizationLabels = params.utilizationLabels
 
-    this.validate()
+    this.validate(params)
     defaultMetrics()
 
     this.errors = counter({
@@ -39,43 +42,27 @@ class USE {
     })
 
     this.saturation = gauge({
-      name: params.saturationName,
-      help: params.saturationHelp,
-      labelNames: params.saturationLabels
+      name: this.saturationName,
+      help: this.saturationHelp,
+      labelNames: this.saturationLabels
     })
 
     this.utilization = gauge({
-      name: params.utilizationName,
-      help: params.utilizationHelp,
-      labelNames: params.utilizationLabels
+      name: this.utilizationName,
+      help: this.utilizationHelp,
+      labelNames: this.utilizationLabels
     })
   }
 
-  private validate(): void {
-    if (!this.saturationName || typeof this.saturationName !== 'string') {
-      throw new Error('saturationName is required and must be a string')
-    }
-    if (!this.saturationHelp || typeof this.saturationHelp !== 'string') {
-      throw new Error('saturationHelp is required and must be a string')
-    }
-    if (!Array.isArray(this.saturationLabels) || this.saturationLabels.length === 0) {
-      throw new Error('saturationLabels is required and must be a non-empty array')
-    }
-    if (!this.utilizationName || typeof this.utilizationName !== 'string') {
-      throw new Error('utilizationName is required and must be a string')
-    }
-    if (!this.utilizationHelp || typeof this.utilizationHelp !== 'string') {
-      throw new Error('utilizationHelp is required and must be a string')
-    }
-    if (!Array.isArray(this.utilizationLabels) || this.utilizationLabels.length === 0) {
-      throw new Error('utilizationLabels is required and must be a non-empty array')
-    }
-    if (this.saturationLabels.some(label => typeof label !== 'string')) {
-      throw new Error('saturationLabels must contain only string values')
-    }
-    if (this.utilizationLabels.some(label => typeof label !== 'string')) {
-      throw new Error('utilizationLabels must contain only string values')
-    }
+  protected schema(): Joi.ObjectSchema<Props> {
+    return Joi.object({
+      saturationName: Joi.string(),
+      saturationHelp: Joi.string(),
+      saturationLabels: Joi.array().items(Joi.string()).min(1),
+      utilizationName: Joi.string(),
+      utilizationHelp: Joi.string(),
+      utilizationLabels: Joi.array().items(Joi.string()).min(1)
+    })
   }
 }
 

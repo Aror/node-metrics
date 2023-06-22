@@ -1,3 +1,5 @@
+import Joi from 'joi'
+import Base from './Base'
 import { counter, defaultMetrics, histogram } from '../metrics'
 
 type Props = {
@@ -6,7 +8,7 @@ type Props = {
   requestLabels: string[]
 }
 
-class RED {
+class RED extends Base<Props> {
   private durationLabels: Props['durationLabels']
   private requestLabels: Props['requestLabels']
   private requestType: Props['requestType']
@@ -16,11 +18,12 @@ class RED {
   public requests: ReturnType<typeof counter>
 
   constructor(params: Props) {
+    super()
     this.durationLabels = params.durationLabels
     this.requestLabels = params.requestLabels
     this.requestType = params.requestType
 
-    this.validate()
+    this.validate(params)
     defaultMetrics()
 
     this.duration = histogram({
@@ -42,22 +45,12 @@ class RED {
     })
   }
 
-  private validate(): void {
-    if (!this.requestType || typeof this.requestType !== 'string') {
-      throw new Error('requestType is required and must be a string')
-    }
-    if (!Array.isArray(this.requestLabels) || this.requestLabels.length === 0) {
-      throw new Error('requestLabels is required and must be a non-empty array')
-    }
-    if (!Array.isArray(this.durationLabels) || this.durationLabels.length === 0) {
-      throw new Error('durationLabels is required and must be a non-empty array')
-    }
-    if (this.requestLabels.some(label => typeof label !== 'string')) {
-      throw new Error('requestLabels must contain only string values')
-    }
-    if (this.durationLabels.some(label => typeof label !== 'string')) {
-      throw new Error('DurationLabels must contain only string values')
-    }
+  protected schema(): Joi.ObjectSchema<Props> {
+    return Joi.object({
+      durationLabels: Joi.array().items(Joi.string()).min(1),
+      requestType: Joi.string(),
+      requestLabels: Joi.array().items(Joi.string()).min(1)
+    })
   }
 }
 

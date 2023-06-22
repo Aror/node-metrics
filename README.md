@@ -19,6 +19,21 @@ The primary goals of this library are to:
 - Easy creation of Prometheus counters, gauges, histograms, and summaries.
 - Implementation of **MVMs** based on the **USE Method**, **RED Method**, and **The Four Golden Signals**.
 
+## Naming
+- `RED` class represents the RED method which focuses on measuring:
+  - **Rate** - the number of requests, per second, you services are serving
+  - **Errors** - the number of failed requests per second
+  - **Duration** - distributions of the amount of time each request takes
+- `UPM` class stands for UserPerformance Metrics. It follows **The Four Golden Signals** and focuses on measuring:
+  - **Latency** - the time it takes to service a request
+  - **Traffic** - how much demand is being placed on your system
+  - **Errors** - rate of requests that fail
+  - **Saturation** - measure of system consumption
+- `USE` class represents the USE method which focuses on measuring:
+  - **Errors** - count of error events
+  - **Saturation** - the degree to which the resource has extra work which it can't service, often queued
+  - **Utilization** - the average time that the resource was busy servicing work
+
 ## Usage
 
 - Install the library
