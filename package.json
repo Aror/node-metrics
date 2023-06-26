@@ -1,31 +1,16 @@
 {
-  "name": "node-metrics",
-  "version": "0.0.1",
+  "name": "node-key-metrics",
   "description": "Package for collecting metrics with Prometheus",
-  "main": "./build/index.js",
-  "files": [
-    "build/**/*"
-  ],
-  "types": "./build/index.d.ts",
-  "scripts": {
-    "build": "tsc --project tsconfig.build.json",
-    "clean": "rm -rf ./build/",
-    "coverage": "jest --coverage",
-    "dev": "ts-node ./src/index.ts",
-    "lint": "eslint ./src/ --fix",
-    "prepare": "husky install",
-    "test": "jest --watch"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ignatospadov/node-metrics.git"
-  },
-  "license": "MIT",
+  "version": "1.0.0",
   "author": {
     "name": "Ignat Ospadov"
   },
-  "engines": {
-    "node": ">=16.0"
+  "bugs": {
+    "url": "https://github.com/ignatospadov/node-metrics/issues"
+  },
+  "dependencies": {
+    "joi": "^17.9.2",
+    "prom-client": "^14.2.0"
   },
   "devDependencies": {
     "@types/jest": "^27.5.2",
@@ -44,11 +29,37 @@
     "ts-node": "^10.2.1",
     "typescript": "^4.2.4"
   },
+  "engines": {
+    "node": ">=16.0"
+  },
+  "files": [
+    "build/**/*"
+  ],
+  "homepage": "https://github.com/ignatospadov/node-metrics#readme",
+  "keywords": [
+    "metrics",
+    "monitoring",
+    "node-metrics"
+  ],
+  "license": "MIT",
   "lint-staged": {
     "*.ts": "eslint --cache --cache-location .eslintcache --fix"
   },
-  "dependencies": {
-    "joi": "^17.9.2",
-    "prom-client": "^14.2.0"
-  }
+  "main": "./build/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ignatospadov/node-metrics.git"
+  },
+  "scripts": {
+    "build": "tsc --project tsconfig.build.json",
+    "clean": "rm -rf ./build/",
+    "coverage": "jest --coverage",
+    "dev": "ts-node ./src/index.ts",
+    "lint": "eslint ./src/ --fix",
+    "prepare": "husky install",
+    "prepublishOnly": "yarn build",
+    "test": "jest --watch"
+  },
+  "type": "module",
+  "types": "./build/index.d.ts"
 }
