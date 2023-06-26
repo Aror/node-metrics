@@ -37,9 +37,11 @@ The primary goals of this library are to:
 ## Usage
 
 - Install the library
+  - via NPM: `npm install node-key-metrics`
+  - via yarn: `yarn add node-key-metrics`
 - Import one of the MVM classes
 ```JavaScript
-import { USE } from 'node-metrics'
+import { USE } from 'node-key-metrics'
 
 // Create an instance of USE with the desired configuration
 const useMetrics = new USE({
@@ -62,7 +64,7 @@ useMetrics.utilization.set({ label3: 'value3', label4: 'value4' }, 0.5)
 OR
 - Use basic prometheus metrics:
 ```JavaScript
-import { counter, defaultMetrics, gauge, histogram, summary } from 'node-metrics'
+import { counter, defaultMetrics, gauge, histogram, summary } from 'node-key-metrics'
 
 // Register default metrics collector
 defaultMetrics()
@@ -110,7 +112,7 @@ requestSizeSummary.observe({ endpoint: '/api/another-endpoint' }, 1024)
 - to expose the metrics to prometheus, use the `collect` method:
 
 ```JavaScript
-import { collect } from 'node-metrics'
+import { collect } from 'node-key-metrics'
 
 app.get('/metrics', (req, res) => {
   res.set('Content-Type', 'text/plain')
