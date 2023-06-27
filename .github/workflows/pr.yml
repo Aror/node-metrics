@@ -1,0 +1,19 @@
+name: Pull Request
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [synchronize, opened]
+    branches:
+      - main
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ArtiomTr/jest-coverage-report-action@v2
+  build:
+    uses: ryansonshine/ryansonshine/.github/workflows/pr.yml@main

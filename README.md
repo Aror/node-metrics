@@ -1,5 +1,9 @@
 # Metrics Library for Node.js
 
+[![npm package][npm-img]][npm-url]
+[![Downloads][downloads-img]][downloads-url]
+[![Issues][issues-img]][issues-url]
+
 ## A simple, lightweight metrics library that provides an interface for instrumenting Node.js applications with Prometheus.
 
 ## Motivation
@@ -120,3 +124,10 @@ app.get('/metrics', (req, res) => {
 })
 
 ```
+
+[downloads-img]:https://img.shields.io/npm/dt/typescript-npm-package-template
+[downloads-url]:https://www.npmtrends.com/node-key-metrics
+[npm-img]:https://img.shields.io/npm/v/typescript-npm-package-template
+[npm-url]:https://www.npmjs.com/package/node-key-metrics
+[issues-img]:https://img.shields.io/github/issues/ryansonshine/typescript-npm-package-template
+[issues-url]:https://github.com/ignatospadov/node-key-metrics/issues

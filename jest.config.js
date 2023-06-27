@@ -6,6 +6,7 @@ module.exports = {
   ],
   coveragePathIgnorePatterns: [
     "<rootDir>/src/index.ts",
+    "<rootDir>/lib"
   ],
   setupFiles: ['<rootDir>setupTests.ts'],
   globals: {
@@ -14,4 +15,5 @@ module.exports = {
       isolatedModules: true,
     },
   },
-};
+  testEnvironment: 'node',
+}
