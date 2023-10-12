@@ -130,4 +130,4 @@ app.get('/metrics', (req, res) => {
 [npm-img]:https://img.shields.io/npm/v/typescript-npm-package-template
 [npm-url]:https://www.npmjs.com/package/node-key-metrics
 [issues-img]:https://img.shields.io/github/issues/ryansonshine/typescript-npm-package-template
-[issues-url]:https://github.com/ignatospadov/node-key-metrics/issues
+[issues-url]:https://github.com/aror/node-key-metrics/issues
