@@ -1,1 +1,1 @@
-declare module 'node-metrics'
+declare module 'node-key-metrics'

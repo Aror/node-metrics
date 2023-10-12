@@ -1,5 +1,9 @@
 # Metrics Library for Node.js
 
+[![npm package][npm-img]][npm-url]
+[![Downloads][downloads-img]][downloads-url]
+[![Issues][issues-img]][issues-url]
+
 ## A simple, lightweight metrics library that provides an interface for instrumenting Node.js applications with Prometheus.
 
 ## Motivation
@@ -37,9 +41,11 @@ The primary goals of this library are to:
 ## Usage
 
 - Install the library
+  - via NPM: `npm install node-key-metrics`
+  - via yarn: `yarn add node-key-metrics`
 - Import one of the MVM classes
 ```JavaScript
-import { USE } from 'node-metrics'
+import { USE } from 'node-key-metrics'
 
 // Create an instance of USE with the desired configuration
 const useMetrics = new USE({
@@ -62,7 +68,7 @@ useMetrics.utilization.set({ label3: 'value3', label4: 'value4' }, 0.5)
 OR
 - Use basic prometheus metrics:
 ```JavaScript
-import { counter, defaultMetrics, gauge, histogram, summary } from 'node-metrics'
+import { counter, defaultMetrics, gauge, histogram, summary } from 'node-key-metrics'
 
 // Register default metrics collector
 defaultMetrics()
@@ -110,7 +116,7 @@ requestSizeSummary.observe({ endpoint: '/api/another-endpoint' }, 1024)
 - to expose the metrics to prometheus, use the `collect` method:
 
 ```JavaScript
-import { collect } from 'node-metrics'
+import { collect } from 'node-key-metrics'
 
 app.get('/metrics', (req, res) => {
   res.set('Content-Type', 'text/plain')
@@ -118,3 +124,10 @@ app.get('/metrics', (req, res) => {
 })
 
 ```
+
+[downloads-img]:https://img.shields.io/npm/dt/typescript-npm-package-template
+[downloads-url]:https://www.npmtrends.com/node-key-metrics
+[npm-img]:https://img.shields.io/npm/v/typescript-npm-package-template
+[npm-url]:https://www.npmjs.com/package/node-key-metrics
+[issues-img]:https://img.shields.io/github/issues/ryansonshine/typescript-npm-package-template
+[issues-url]:https://github.com/ignatospadov/node-key-metrics/issues

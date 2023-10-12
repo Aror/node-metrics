@@ -1,37 +1,32 @@
 {
-  "name": "node-metrics",
-  "version": "0.0.1",
+  "name": "node-key-metrics",
   "description": "Package for collecting metrics with Prometheus",
-  "main": "./build/index.js",
-  "files": [
-    "build/**/*"
-  ],
-  "types": "./build/index.d.ts",
-  "scripts": {
-    "build": "tsc --project tsconfig.build.json",
-    "clean": "rm -rf ./build/",
-    "coverage": "jest --coverage",
-    "dev": "ts-node ./src/index.ts",
-    "lint": "eslint ./src/ --fix",
-    "prepare": "husky install",
-    "test": "jest --watch"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ignatospadov/node-metrics.git"
-  },
-  "license": "MIT",
+  "version": "1.0.2",
   "author": {
-    "name": "Ignat Ospadov"
+    "name": "Ignat Ospadov",
+    "email": "iospadov@gmail.com",
+    "url": "https://github.com/ignatospadov"
   },
-  "engines": {
-    "node": ">=16.0"
+  "bugs": {
+    "url": "https://github.com/ignatospadov/node-metrics/issues"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/@ryansonshine/cz-conventional-changelog"
+    }
+  },
+  "dependencies": {
+    "joi": "^17.9.2",
+    "prom-client": "^14.2.0"
   },
   "devDependencies": {
+    "@ryansonshine/commitizen": "^4.2.8",
+    "@ryansonshine/cz-conventional-changelog": "^3.3.4",
     "@types/jest": "^27.5.2",
     "@types/node": "^12.20.11",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
+    "conventional-changelog-conventionalcommits": "^5.0.0",
     "eslint": "^7.25.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-node": "^11.1.0",
@@ -40,15 +35,86 @@
     "jest": "^27.2.0",
     "lint-staged": "^13.2.1",
     "prettier": "^2.2.1",
+    "semantic-release": "^21.0.1",
     "ts-jest": "^27.0.5",
     "ts-node": "^10.2.1",
     "typescript": "^4.2.4"
   },
+  "engines": {
+    "node": ">=18.0"
+  },
+  "files": [
+    "lib/**/*"
+  ],
+  "homepage": "https://github.com/ignatospadov/node-metrics#readme",
+  "keywords": [
+    "metrics",
+    "monitoring",
+    "node-metrics"
+  ],
+  "license": "MIT",
   "lint-staged": {
     "*.ts": "eslint --cache --cache-location .eslintcache --fix"
   },
-  "dependencies": {
-    "joi": "^17.9.2",
-    "prom-client": "^14.2.0"
+  "main": "./lib/index.js",
+  "release": {
+    "branches": [
+      "main"
+    ],
+    "plugins": [
+      [
+        "@semantic-release/commit-analyzer",
+        {
+          "preset": "conventionalcommits",
+          "releaseRules": [
+            {
+              "type": "build",
+              "scope": "deps",
+              "release": "patch"
+            }
+          ]
+        }
+      ],
+      [
+        "@semantic-release/release-notes-generator",
+        {
+          "preset": "conventionalcommits",
+          "presetConfig": {
+            "types": [
+              {
+                "type": "feat",
+                "section": "Features"
+              },
+              {
+                "type": "fix",
+                "section": "Bug Fixes"
+              },
+              {
+                "type": "build",
+                "section": "Dependencies and Other Build Updates",
+                "hidden": false
+              }
+            ]
+          }
+        }
+      ],
+      "@semantic-release/npm",
+      "@semantic-release/github"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ignatospadov/node-metrics.git"
+  },
+  "scripts": {
+    "build": "tsc --project tsconfig.build.json",
+    "clean": "rm -rf ./lib/",
+    "cm": "cz",
+    "lint": "eslint ./src/ --fix",
+    "prepare": "husky install",
+    "semantic-release": "semantic-release",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch",
+    "typecheck": "tsc --noEmit"
   }
 }
