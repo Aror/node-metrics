@@ -5,7 +5,6 @@ coverage
 .env
 .husky
 .github
-yarn.lock
 tsconfig.json
 README.md
 package.json

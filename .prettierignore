@@ -2,11 +2,9 @@ build
 coverage
 .vscode
 .env
-yarn-error.log
 .husky
 .github
 Dockerfile
-yarn.lock
 tsconfig.json
 README.md
 package.json
