@@ -1,7 +1,7 @@
 {
   "name": "node-key-metrics",
   "description": "Package for collecting metrics with Prometheus",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": {
     "name": "Ignat Ospadov",
     "email": "iospadov@gmail.com",
