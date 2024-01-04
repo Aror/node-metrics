@@ -7,6 +7,7 @@ const params = ({
   utilizationName = 'utilization',
   utilizationHelp = 'utilization metric',
   utilizationLabels = ['label1', 'label2'],
+  collectDefaultMetrics = true
 }) => {
   return {
     saturationName,
@@ -14,7 +15,8 @@ const params = ({
     saturationLabels,
     utilizationName,
     utilizationHelp,
-    utilizationLabels
+    utilizationLabels,
+    collectDefaultMetrics
   }
 }
 
@@ -26,24 +28,18 @@ describe('USE', () => {
     })
   })
   describe('when empty values are passed', () => {
-    test.each(Object.entries(params({})))(
-      'given %p and and empty string as arguments, throws an error',
-      (a, b) => {
-        expect(() => {
-          new USE(params({ [a]: '' }))
-        }).toThrow(Error)
-      }
-    )
+    test.each(Object.entries(params({})))('given %p and and empty string as arguments, throws an error', (a, b) => {
+      expect(() => {
+        new USE(params({ [a]: '' }))
+      }).toThrow(Error)
+    })
   })
   describe('when unexpected type of value is passed', () => {
-    test.each(Object.entries(params({})))(
-      'given %p and 0 as arguments, throws an error',
-      (a, b) => {
-        expect(() => {
-          new USE(params({ [a]: 0 }))
-        }).toThrow(Error)
-      }
-    )
+    test.each(Object.entries(params({})))('given %p and 0 as arguments, throws an error', (a, b) => {
+      expect(() => {
+        new USE(params({ [a]: 0 }))
+      }).toThrow(Error)
+    })
   })
   describe('when arrays of unexpected length are passed', () => {
     it('throws an error for saturationLabels', () => {
