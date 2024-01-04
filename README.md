@@ -4,7 +4,7 @@
 [![Downloads][downloads-img]][downloads-url]
 [![Issues][issues-img]][issues-url]
 
-## A simple, lightweight metrics library that provides an interface for instrumenting Node.js applications with Prometheus.
+## A simple lightweight metrics library that provides an interface for instrumenting Node.js applications with Prometheus.
 
 ## Motivation
 
