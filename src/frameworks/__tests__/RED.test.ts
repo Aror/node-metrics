@@ -1,14 +1,16 @@
 import RED from '../RED'
 
 const params = ({
-  durationLabels = ['label1','label2'],
+  durationLabels = ['label1', 'label2'],
   requestType = 'api_post',
-  requestLabels = ['label3', 'label4']
+  requestLabels = ['label3', 'label4'],
+  collectDefaultMetrics = true
 }) => {
   return {
     durationLabels,
     requestType,
-    requestLabels
+    requestLabels,
+    collectDefaultMetrics
   }
 }
 
@@ -20,24 +22,18 @@ describe('RED', () => {
     })
   })
   describe('when empty values are passed', () => {
-    test.each(Object.entries(params({})))(
-      'given %p and and empty string as arguments, throws an error',
-      (a, b) => {
-        expect(() => {
-          new RED(params({ [a]: '' }))
-        }).toThrow(Error)
-      }
-    )
+    test.each(Object.entries(params({})))('given %p and and empty string as arguments, throws an error', (a, b) => {
+      expect(() => {
+        new RED(params({ [a]: '' }))
+      }).toThrow(Error)
+    })
   })
   describe('when unexpected type of value is passed', () => {
-    test.each(Object.entries(params({})))(
-      'given %p and 0 as arguments, throws an error',
-      (a, b) => {
-        expect(() => {
-          new RED(params({ [a]: 0 }))
-        }).toThrow(Error)
-      }
-    )
+    test.each(Object.entries(params({})))('given %p and 0 as arguments, throws an error', (a, b) => {
+      expect(() => {
+        new RED(params({ [a]: 0 }))
+      }).toThrow(Error)
+    })
   })
   describe('when arrays of unexpected length are passed', () => {
     it('throws an error for durationLabels', () => {
