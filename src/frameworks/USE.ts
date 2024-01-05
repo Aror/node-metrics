@@ -9,6 +9,7 @@ type Props = {
   utilizationName: string
   utilizationHelp: string
   utilizationLabels: string[]
+  collectDefaultMetrics?: boolean
 }
 
 class USE extends Base<Props> {
@@ -33,7 +34,10 @@ class USE extends Base<Props> {
     this.utilizationLabels = params.utilizationLabels
 
     this.validate(params)
-    defaultMetrics()
+
+    if (params.collectDefaultMetrics) {
+      defaultMetrics()
+    }
 
     this.errors = counter({
       name: 'errors_total',
@@ -61,7 +65,8 @@ class USE extends Base<Props> {
       saturationLabels: Joi.array().items(Joi.string()).min(1),
       utilizationName: Joi.string(),
       utilizationHelp: Joi.string(),
-      utilizationLabels: Joi.array().items(Joi.string()).min(1)
+      utilizationLabels: Joi.array().items(Joi.string()).min(1),
+      collectDefaultMetrics: Joi.boolean()
     })
   }
 }

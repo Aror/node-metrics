@@ -12,6 +12,7 @@ type Props = {
   saturationName: string
   saturationHelp: string
   saturationLabels: string[]
+  collectDefaultMetrics?: boolean
 }
 
 class FourGoldenSignals extends Base<Props> {
@@ -43,7 +44,10 @@ class FourGoldenSignals extends Base<Props> {
     this.saturationLabels = params.saturationLabels
 
     this.validate(params)
-    defaultMetrics()
+
+    if (params.collectDefaultMetrics) {
+      defaultMetrics()
+    }
 
     this.errors = counter({
       name: 'errors_total',
@@ -54,7 +58,7 @@ class FourGoldenSignals extends Base<Props> {
     this.latency = histogram({
       name: this.latencyName,
       help: this.latencyHelp,
-      labelNames: this.latencyLabels,
+      labelNames: this.latencyLabels
     })
 
     this.saturation = gauge({
@@ -80,7 +84,8 @@ class FourGoldenSignals extends Base<Props> {
       saturationLabels: Joi.array().items(Joi.string()).min(1),
       trafficName: Joi.string(),
       trafficHelp: Joi.string(),
-      trafficLabels: Joi.array().items(Joi.string()).min(1)
+      trafficLabels: Joi.array().items(Joi.string()).min(1),
+      collectDefaultMetrics: Joi.boolean()
     })
   }
 }

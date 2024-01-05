@@ -48,6 +48,7 @@ The primary goals of this library are to:
 import { USE } from 'node-key-metrics'
 
 // Create an instance of USE with the desired configuration
+// The DefaultMetric can be either collected or disabled based on the value of the collectDefaultMetrics parameter. By default disabled.
 const useMetrics = new USE({
   saturationName: 'saturation',
   saturationHelp: 'saturation metric help text',
@@ -55,6 +56,7 @@ const useMetrics = new USE({
   utilizationName: 'utilization',
   utilizationHelp: 'utilization metric help text',
   utilizationLabels: ['label3', 'label4'],
+  collectDefaultMetrics: true,
 })
 
 // Increment the error counter
