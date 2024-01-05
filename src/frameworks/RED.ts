@@ -6,6 +6,7 @@ type Props = {
   durationLabels: string[]
   requestType: string
   requestLabels: string[]
+  collectDefaultMetrics?: boolean
 }
 
 class RED extends Base<Props> {
@@ -24,7 +25,10 @@ class RED extends Base<Props> {
     this.requestType = params.requestType
 
     this.validate(params)
-    defaultMetrics()
+
+    if (params.collectDefaultMetrics) {
+      defaultMetrics()
+    }
 
     this.duration = histogram({
       name: `${this.requestType}_duration_seconds`,
@@ -49,7 +53,8 @@ class RED extends Base<Props> {
     return Joi.object({
       durationLabels: Joi.array().items(Joi.string()).min(1),
       requestType: Joi.string(),
-      requestLabels: Joi.array().items(Joi.string()).min(1)
+      requestLabels: Joi.array().items(Joi.string()).min(1),
+      collectDefaultMetrics: Joi.boolean()
     })
   }
 }
