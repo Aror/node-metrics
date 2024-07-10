@@ -17,6 +17,9 @@ module.exports = {
     tsconfigRootDir: __dirname,
     project: ['./tsconfig.json'],
   },
+  globals: {
+    jest: true
+  },
   plugins: ['@typescript-eslint', 'node', 'prettier'],
   root: true,
   rules: {

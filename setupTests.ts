@@ -4,7 +4,9 @@ jest.mock('prom-client', () => ({
   Gauge: jest.fn(),
   Histogram: jest.fn(),
   register: {
-    metrics: jest.fn()
+    metrics: jest.fn(),
+    getSingleMetric: jest.fn(),
+    contentType: 'contentType'
   },
   Summary: jest.fn()
 }))
