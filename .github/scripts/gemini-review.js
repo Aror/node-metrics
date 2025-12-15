@@ -2,35 +2,66 @@ const { GoogleGenerativeAI } = require("@google/generative-ai");
 const github = require("@actions/github");
 const core = require("@actions/core");
 
-async function run() {
+async function updateStatus({ octokit, context, sha, state, description }) {
+  if (!sha) {
+    console.log("No PR_HEAD_SHA found, skipping status check update.");
+    return;
+  }
+  const { owner, repo } = context.repo;
   try {
-    const apiKey = process.env.GEMINI_API_KEY;
-    const githubToken = process.env.GITHUB_TOKEN;
+    await octokit.rest.repos.createCommitStatus({
+      owner,
+      repo,
+      sha,
+      state,
+      description,
+      context: "AI Review",
+    });
+  } catch (e) {
+    console.error("Failed to update status check:", e);
+  }
+}
 
-    if (!apiKey) {
-      core.setFailed("GEMINI_API_KEY is not set");
-      return;
-    }
-    core.setSecret(apiKey);
+async function run() {
+  const apiKey = process.env.GEMINI_API_KEY;
+  const githubToken = process.env.GITHUB_TOKEN;
 
-    if (!githubToken) {
-      core.setFailed("GITHUB_TOKEN is not set");
-      return;
-    }
-    core.setSecret(githubToken);
+  if (!apiKey) {
+    core.setFailed("GEMINI_API_KEY is not set");
+    return;
+  }
+  core.setSecret(apiKey);
 
+  if (!githubToken) {
+    core.setFailed("GITHUB_TOKEN is not set");
+    return;
+  }
+  core.setSecret(githubToken);
 
-    const octokit = github.getOctokit(githubToken);
-    const context = github.context;
+  const octokit = github.getOctokit(githubToken);
+  const context = github.context;
 
-    // Get the Pull Request Number
-    const prNumber = process.env.PR_NUMBER || (context.payload.pull_request ? context.payload.pull_request.number : null);
-    if (!prNumber) {
-      core.setFailed("No pull request found in context or PR_NUMBER env var");
-      return;
-    }
+  // Get the Pull Request Number
+  const prNumber = process.env.PR_NUMBER;
 
-    const { owner, repo } = context.repo;
+  // Get the SHA for status check
+  const prHeadSha = process.env.PR_HEAD_SHA;
+
+  if (!prNumber) {
+    core.setFailed("No pull request found in context or PR_NUMBER env var");
+    return;
+  }
+
+  const { owner, repo } = context.repo;
+
+  try {
+    await updateStatus({
+      octokit,
+      context,
+      sha: prHeadSha,
+      state: "pending",
+      description: "AI Review in progress..."
+    });
 
     // Fetch the PR Diff
     const { data: diff } = await octokit.rest.pulls.get({
@@ -81,8 +112,25 @@ ${diff.substring(0, 30000)}
     });
 
     console.log("Review posted successfully.");
+    await updateStatus({
+      octokit,
+      context,
+      sha: prHeadSha,
+      state: "success",
+      description: "AI Review complete"
+    });
 
   } catch (error) {
+    // Only attempt status update if octokit is initialized
+    if (octokit) {
+      await updateStatus({
+        octokit,
+        context,
+        sha: prHeadSha,
+        state: "error",
+        description: "AI Review failed"
+      });
+    }
     core.setFailed(error.message);
   }
 }
